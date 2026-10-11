@@ -1,0 +1,575 @@
+{
+  "repository": "RD-Agent",
+  "source_commit_before_documentation_commit": "1dcf4281764fc8733bfdad232d3b171313fdbcc5",
+  "recorded_on": "2026-10-12",
+  "records": [
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "/tmp/trading-rdagent-agent-smoke.py"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "agent-runtime-no-network",
+      "original_log": "RD-Agent-agent-runtime-no-network.log",
+      "log_sha256": "f2ccb50d5431170634e9fe30522be83b4b8e4095e0e4f00e6ae9f8160a133f17",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build",
+      "original_log": "RD-Agent-build.log",
+      "log_sha256": "78e931ac1de32b0677eaa460b40e55c1f3a538ebdbc33936de2168897baab907",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build-current-layout",
+      "original_log": "RD-Agent-build-current-layout.log",
+      "log_sha256": "dadbdb07a7f0e3b7473a0524c864bb50f9e75f2331af5f662896cf66987a88d3",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build-final",
+      "original_log": "RD-Agent-build-final.log",
+      "log_sha256": "8650ee261b3d2ef41ba77a177270a30b3822506de8a1351b3535807e5e87f59d",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build-nested-cache-fixed",
+      "original_log": "RD-Agent-build-nested-cache-fixed.log",
+      "log_sha256": "783ade979f7249147813f7ae3ea26b4362b4f6c484841654324b1015d45c257e",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build-portable-env-final",
+      "original_log": "RD-Agent-build-portable-env-final.log",
+      "log_sha256": "b858b20ac6f51f7da35573ac343acfae7e3d51581ac0c13ad2f438f250a50b96",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "build-standard-asyncio-final",
+      "original_log": "RD-Agent-build-standard-asyncio-final.log",
+      "log_sha256": "51ba84cf8734168e37d29ae0d4664676bd5fb3ade2213be529d021fd3145a2bb",
+      "outcomes": [
+        "Successfully built dist/rdagent-1.0.1.dev0.tar.gz",
+        "Successfully built dist/rdagent-1.0.1.dev0-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "compileall",
+        "-q",
+        "rdagent"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "compileall-portable",
+      "original_log": "RD-Agent-compileall-portable.log",
+      "log_sha256": "c5c31d1137d9e657650ba600d322e5f3d831e7ad20c92045cccd4a066182c8f4",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "docker",
+        "info"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "docker-prerequisite",
+      "original_log": "RD-Agent-docker-prerequisite.log",
+      "log_sha256": "ac38e5882e88449af70aa8ef84b4cd6bbdfe1dab42ae08df99e9b081114c7988",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-groups",
+        "--all-extras",
+        "--python",
+        "3.14.8"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "python-final-sync",
+      "original_log": "RD-Agent-python-final-sync.log",
+      "log_sha256": "7269dd7ab2406f248c29546a1d40b9006d04dd4715ef08f7f891ad5352df7e1d",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-groups",
+        "--all-extras",
+        "--python",
+        "3.14.8"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "python3148-sync",
+      "original_log": "RD-Agent-python3148-sync.log",
+      "log_sha256": "6bc114f484536384428e1424f03ec4fef89a392f8027d728ce27b7a2e22b536e",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--upgrade",
+        "--python",
+        "3.15"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "python315-lock",
+      "original_log": "RD-Agent-python315-lock.log",
+      "log_sha256": "8e4cad731c59521682f12c7488c2da32305201119150f885fa6774c4f411704e",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--python",
+        "3.15",
+        "--all-groups",
+        "--all-extras"
+      ],
+      "exit_code": 2,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "python315-sync",
+      "original_log": "RD-Agent-python315-sync.log",
+      "log_sha256": "fa493c19e8a6f966ea7afc9351e49c3a35af7c9ff55129c8e8a14d6e590c7d0a",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 2,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests",
+      "original_log": "RD-Agent-tests.log",
+      "log_sha256": "5d92b6bbd58a7f989204af5965730bdb3926ece61ba2b1f5887772e97b8bfe63",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "pytest",
+        "test/oai/test_pydantic.py",
+        "test/oai/test_prefect_cache.py",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-context7-standard-asyncio",
+      "original_log": "RD-Agent-tests-context7-standard-asyncio.log",
+      "log_sha256": "ed37860f1c1c5045f184d5e99bd5f37307459dc0bbb0a9e95412092ee08c3e24",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "test/utils/test_env.py",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-env-current-runtime",
+      "original_log": "RD-Agent-tests-env-current-runtime.log",
+      "log_sha256": "53a2499bb5f01c7f11ffa3bce3704431a1158e773ded661231cb5c6c3589bab0",
+      "outcomes": [
+        "=================== 2 failed, 6 passed, 1 warning in 19.73s ===================="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "test/utils/test_env.py",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-env-file-store",
+      "original_log": "RD-Agent-tests-env-file-store.log",
+      "log_sha256": "d48fc4f3691696a4dd21fb0c0e089435f97917644f3a3aef4f9bc68f97d8a70f",
+      "outcomes": [
+        "=================== 8 passed, 1 warning in 391.32s (0:06:31) ==================="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 124,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-final-current-layout",
+      "original_log": "RD-Agent-tests-final-current-layout.log",
+      "log_sha256": "db46df3971bead47fde6af0c83592f772292f3d0735ce734228e80e3a96c7136",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-final3148",
+      "original_log": "RD-Agent-tests-final3148.log",
+      "log_sha256": "05fd5b8d12d89bf4f19d56ba5bca60fe09dee24dbab391277d67f660ba5208b9",
+      "outcomes": [
+        "= 28 failed, 214 passed, 25 warnings, 1 error, 316 subtests passed in 505.51s (0:08:25) ="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-full-portable-final",
+      "original_log": "RD-Agent-tests-full-portable-final.log",
+      "log_sha256": "fb2f3469b4a9083c7e8211eb664d473b4110bfa42ed0a8935819dd262481661e",
+      "outcomes": [
+        "= 20 failed, 222 passed, 24 warnings, 1 error, 316 subtests passed in 564.93s (0:09:24) ="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-full-standard-asyncio-final",
+      "original_log": "RD-Agent-tests-full-standard-asyncio-final.log",
+      "log_sha256": "a6a5dddd5f5a5734a3b960173cf56dcda07b8daa103fb3ceca98dd6bc09d1a59",
+      "outcomes": [
+        "= 20 failed, 222 passed, 17 warnings, 1 error, 316 subtests passed in 436.99s (0:07:16) ="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-nested-cache-fixed",
+      "original_log": "RD-Agent-tests-nested-cache-fixed.log",
+      "log_sha256": "627930bab405b3e6adeb11cfa760850b796032a58616faecbac26d6c89ccb2ad",
+      "outcomes": [
+        "= 24 failed, 218 passed, 24 warnings, 1 error, 316 subtests passed in 228.11s (0:03:48) ="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "test/notebook",
+        "test/utils/test_conf.py"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-notebook-conf-current",
+      "original_log": "RD-Agent-tests-notebook-conf-current.log",
+      "log_sha256": "47c8d0e020a41a134f28ecad75e24939d86261ce5cf9e88d58ab4420f2bd1411",
+      "outcomes": [
+        "======================== 65 passed, 4 warnings in 3.71s ========================"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "-m",
+        "offline",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-offline",
+      "original_log": "RD-Agent-tests-offline.log",
+      "log_sha256": "8ee0a672c3f2272b1d0c20641a67b1fc8436f86b2d65a8d2080aea58a99e6e20",
+      "outcomes": [
+        "==== 131 passed, 112 deselected, 17 warnings, 304 subtests passed in 56.12s ===="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "--ignore",
+        "test/scripts",
+        "-m",
+        "offline"
+      ],
+      "exit_code": 0,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-offline-final3148",
+      "original_log": "RD-Agent-tests-offline-final3148.log",
+      "log_sha256": "6704a4fd4dbc7513cd8e5131cdd885e3c93b111f27232b68b82575b4d4003b55",
+      "outcomes": [
+        "==== 131 passed, 112 deselected, 16 warnings, 304 subtests passed in 13.05s ===="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "test/utils/test_env.py",
+        "--tb=short"
+      ],
+      "exit_code": 1,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-quoted-portable-env",
+      "original_log": "RD-Agent-tests-quoted-portable-env.log",
+      "log_sha256": "d85ef287991f20b5afb898ab81fea4918afb766fed83e560c0c1a9cfcda110d0",
+      "outcomes": [
+        "=================== 3 failed, 5 passed, 1 warning in 20.28s ===================="
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts"
+      ],
+      "exit_code": 124,
+      "cwd": "<workspace>/RD-Agent",
+      "check": "tests-upgraded-mcp",
+      "original_log": "RD-Agent-tests-upgraded-mcp.log",
+      "log_sha256": "c26874bbe1fe3852d391f23b78961e941b7ea223a9ad83fb4673f7eb5d4a1ab1",
+      "outcomes": []
+    }
+  ],
+  "summary": {
+    "repo": "RD-Agent",
+    "status": "blocked",
+    "branch": "feature/ayu_develop",
+    "head": "1dcf4281764fc8733bfdad232d3b171313fdbcc5",
+    "selected_python": "3.14.8",
+    "uv_version": "0.13.0",
+    "rust_version": null,
+    "build": {
+      "repo": "RD-Agent",
+      "step": "build-standard-asyncio-final",
+      "command": [
+        "uv",
+        "build"
+      ],
+      "cwd": "<workspace>/RD-Agent",
+      "started": 1791742547.813867,
+      "log": "<workspace>/docs/maintenance-2026-10-12/RD-Agent-build-standard-asyncio-final.log",
+      "exit_code": 0,
+      "elapsed_seconds": 6.41
+    },
+    "full_tests": {
+      "repo": "RD-Agent",
+      "step": "tests-full-standard-asyncio-final",
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "-m",
+        "coverage",
+        "run",
+        "--concurrency=multiprocessing",
+        "-m",
+        "pytest",
+        "--ignore",
+        "test/scripts",
+        "--tb=short"
+      ],
+      "cwd": "<workspace>/RD-Agent",
+      "started": 1791742547.812873,
+      "log": "<workspace>/docs/maintenance-2026-10-12/RD-Agent-tests-full-standard-asyncio-final.log",
+      "exit_code": 1,
+      "elapsed_seconds": 440.69
+    },
+    "summary": "The complete canonical suite finished:222passed,20failed,1error,316subtests passed; no cases were deselected. Twelve failures require real chat/embedding credentials, two require the configured Context7 MCP endpoint, five require Kaggle authentication, and one requires a valid KG_COMPETITION setting. The existing standalone connectivity test_model(model) has no model fixture and remains an error. All8existing environment cases pass, including real Docker Qlib training, local timeout and mounts. Current MCPToolset and standard asyncio replace removed APIs and an incompatible global nest_asyncio patch. Full suite success is blocked by those explicit prerequisites; package wheel/source builds and runtime controls pass.",
+    "documentation": [
+      "docs/ayu-develop.md",
+      "docs/ayu-develop.html",
+      "docs/development.md",
+      "docs/development.html",
+      "docs/validation.md",
+      "docs/validation.html"
+    ],
+    "source_links": 12,
+    "diagram_count": 6,
+    "sync_evidence": "<workspace>/docs/maintenance-2026-10-12/RD-Agent-sync.json",
+    "feature_pushed": false,
+    "commit": "1dcf4281764fc8733bfdad232d3b171313fdbcc5",
+    "test_counts": {
+      "passed": 222,
+      "failed": 20,
+      "errors": 1,
+      "subtests_passed": 316,
+      "deselected": 0
+    },
+    "blockers": [
+      "12 chat/embedding/agent cases require actual model API credentials",
+      "2 Context7 cases cannot connect to the configured MCP endpoint",
+      "5 CoSTEER cases require Kaggle authentication",
+      "competition-template case requires valid KG_COMPETITION",
+      "existing test_model(model) has no model fixture"
+    ]
+  },
+  "note": "Full raw logs are retained in the workspace maintenance evidence, not distributed here. Hashes identify those original logs. A successful build or selected test subset does not imply a full test-suite pass. Commands containing <workspace> describe the original execution environment."
+}

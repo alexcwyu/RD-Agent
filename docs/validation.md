@@ -12,33 +12,33 @@ Current recorded status: **blocked**. Interpreter fallback evidence and native p
 
 | Step | Exact command | Exit | Elapsed seconds | Evidence |
 |---|---|---:|---:|---|
-| python315-lock | `uv lock --upgrade --python 3.15` | 0 | unrecorded | [RD-Agent-python315-lock.log](../../docs/maintenance-2026-10-12/RD-Agent-python315-lock.log) |
-| python315-sync | `uv sync --python 3.15 --all-groups --all-extras` | 2 | unrecorded | [RD-Agent-python315-sync.log](../../docs/maintenance-2026-10-12/RD-Agent-python315-sync.log) |
-| tests | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 2 | 26.68 | [RD-Agent-tests.log](../../docs/maintenance-2026-10-12/RD-Agent-tests.log) |
-| build | `uv build` | 0 | 7.78 | [RD-Agent-build.log](../../docs/maintenance-2026-10-12/RD-Agent-build.log) |
-| tests-upgraded-mcp | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 124 | 900.04 | [RD-Agent-tests-upgraded-mcp.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-upgraded-mcp.log) |
-| python3148-sync | `uv sync --all-groups --all-extras --python 3.14.8` | 0 | 17.48 | [RD-Agent-python3148-sync.log](../../docs/maintenance-2026-10-12/RD-Agent-python3148-sync.log) |
-| tests-offline | `uv run --no-sync pytest -m offline --ignore test/scripts` | 0 | 67.52 | [RD-Agent-tests-offline.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-offline.log) |
-| build-final | `uv build` | 0 | 15.24 | [RD-Agent-build-final.log](../../docs/maintenance-2026-10-12/RD-Agent-build-final.log) |
-| python-final-sync | `uv sync --all-groups --all-extras --python 3.14.8` | 0 | 0.32 | [RD-Agent-python-final-sync.log](../../docs/maintenance-2026-10-12/RD-Agent-python-final-sync.log) |
-| tests-final3148 | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 1 | 509.81 | [RD-Agent-tests-final3148.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-final3148.log) |
-| tests-offline-final3148 | `uv run --no-sync pytest --ignore test/scripts -m offline` | 0 | 17.19 | [RD-Agent-tests-offline-final3148.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-offline-final3148.log) |
-| docker-prerequisite | `docker info` | 0 | 2.68 | [RD-Agent-docker-prerequisite.log](../../docs/maintenance-2026-10-12/RD-Agent-docker-prerequisite.log) |
-| tests-notebook-conf-current | `uv run --no-sync pytest test/notebook test/utils/test_conf.py` | 0 | 5.53 | [RD-Agent-tests-notebook-conf-current.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-notebook-conf-current.log) |
-| tests-final-current-layout | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 124 | 600.07 | [RD-Agent-tests-final-current-layout.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-final-current-layout.log) |
-| build-current-layout | `uv build` | 0 | 5.19 | [RD-Agent-build-current-layout.log](../../docs/maintenance-2026-10-12/RD-Agent-build-current-layout.log) |
-| build-nested-cache-fixed | `uv build` | 0 | 9.96 | [RD-Agent-build-nested-cache-fixed.log](../../docs/maintenance-2026-10-12/RD-Agent-build-nested-cache-fixed.log) |
-| tests-nested-cache-fixed | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 1 | 232.55 | [RD-Agent-tests-nested-cache-fixed.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-nested-cache-fixed.log) |
-| tests-quoted-portable-env | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 1 | 23.15 | [RD-Agent-tests-quoted-portable-env.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-quoted-portable-env.log) |
-| tests-env-current-runtime | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 1 | 22.71 | [RD-Agent-tests-env-current-runtime.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-env-current-runtime.log) |
-| tests-env-file-store | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 0 | 396.09 | [RD-Agent-tests-env-file-store.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-env-file-store.log) |
-| build-portable-env-final | `uv build` | 0 | 16.71 | [RD-Agent-build-portable-env-final.log](../../docs/maintenance-2026-10-12/RD-Agent-build-portable-env-final.log) |
-| tests-full-portable-final | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts --tb=short` | 1 | 570.3 | [RD-Agent-tests-full-portable-final.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-full-portable-final.log) |
-| compileall-portable | `uv run --no-sync python -m compileall -q rdagent` | 0 | 0.57 | [RD-Agent-compileall-portable.log](../../docs/maintenance-2026-10-12/RD-Agent-compileall-portable.log) |
-| tests-context7-standard-asyncio | `uv run --no-sync python -m pytest test/oai/test_pydantic.py test/oai/test_prefect_cache.py --tb=short` | 1 | 8.61 | [RD-Agent-tests-context7-standard-asyncio.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-context7-standard-asyncio.log) |
-| tests-full-standard-asyncio-final | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts --tb=short` | 1 | 440.69 | [RD-Agent-tests-full-standard-asyncio-final.log](../../docs/maintenance-2026-10-12/RD-Agent-tests-full-standard-asyncio-final.log) |
-| build-standard-asyncio-final | `uv build` | 0 | 6.41 | [RD-Agent-build-standard-asyncio-final.log](../../docs/maintenance-2026-10-12/RD-Agent-build-standard-asyncio-final.log) |
-| agent-runtime-no-network | `uv run --no-sync python /tmp/trading-rdagent-agent-smoke.py` | 0 | 6.73 | [RD-Agent-agent-runtime-no-network.log](../../docs/maintenance-2026-10-12/RD-Agent-agent-runtime-no-network.log) |
+| python315-lock | `uv lock --upgrade --python 3.15` | 0 | unrecorded | [check record](maintenance/index.html) |
+| python315-sync | `uv sync --python 3.15 --all-groups --all-extras` | 2 | unrecorded | [check record](maintenance/index.html) |
+| tests | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 2 | 26.68 | [check record](maintenance/index.html) |
+| build | `uv build` | 0 | 7.78 | [check record](maintenance/index.html) |
+| tests-upgraded-mcp | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 124 | 900.04 | [check record](maintenance/index.html) |
+| python3148-sync | `uv sync --all-groups --all-extras --python 3.14.8` | 0 | 17.48 | [check record](maintenance/index.html) |
+| tests-offline | `uv run --no-sync pytest -m offline --ignore test/scripts` | 0 | 67.52 | [check record](maintenance/index.html) |
+| build-final | `uv build` | 0 | 15.24 | [check record](maintenance/index.html) |
+| python-final-sync | `uv sync --all-groups --all-extras --python 3.14.8` | 0 | 0.32 | [check record](maintenance/index.html) |
+| tests-final3148 | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 1 | 509.81 | [check record](maintenance/index.html) |
+| tests-offline-final3148 | `uv run --no-sync pytest --ignore test/scripts -m offline` | 0 | 17.19 | [check record](maintenance/index.html) |
+| docker-prerequisite | `docker info` | 0 | 2.68 | [check record](maintenance/index.html) |
+| tests-notebook-conf-current | `uv run --no-sync pytest test/notebook test/utils/test_conf.py` | 0 | 5.53 | [check record](maintenance/index.html) |
+| tests-final-current-layout | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 124 | 600.07 | [check record](maintenance/index.html) |
+| build-current-layout | `uv build` | 0 | 5.19 | [check record](maintenance/index.html) |
+| build-nested-cache-fixed | `uv build` | 0 | 9.96 | [check record](maintenance/index.html) |
+| tests-nested-cache-fixed | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts` | 1 | 232.55 | [check record](maintenance/index.html) |
+| tests-quoted-portable-env | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 1 | 23.15 | [check record](maintenance/index.html) |
+| tests-env-current-runtime | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 1 | 22.71 | [check record](maintenance/index.html) |
+| tests-env-file-store | `uv run --no-sync pytest test/utils/test_env.py --tb=short` | 0 | 396.09 | [check record](maintenance/index.html) |
+| build-portable-env-final | `uv build` | 0 | 16.71 | [check record](maintenance/index.html) |
+| tests-full-portable-final | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts --tb=short` | 1 | 570.3 | [check record](maintenance/index.html) |
+| compileall-portable | `uv run --no-sync python -m compileall -q rdagent` | 0 | 0.57 | [check record](maintenance/index.html) |
+| tests-context7-standard-asyncio | `uv run --no-sync python -m pytest test/oai/test_pydantic.py test/oai/test_prefect_cache.py --tb=short` | 1 | 8.61 | [check record](maintenance/index.html) |
+| tests-full-standard-asyncio-final | `uv run --no-sync python -m coverage run --concurrency=multiprocessing -m pytest --ignore test/scripts --tb=short` | 1 | 440.69 | [check record](maintenance/index.html) |
+| build-standard-asyncio-final | `uv build` | 0 | 6.41 | [check record](maintenance/index.html) |
+| agent-runtime-no-network | `uv run --no-sync python /tmp/trading-rdagent-agent-smoke.py` | 0 | 6.73 | [check record](maintenance/index.html) |
 
 ## Test summaries and failures
 
