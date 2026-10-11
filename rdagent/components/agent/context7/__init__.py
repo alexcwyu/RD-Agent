@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.mcp import MCPToolset
 
 from rdagent.components.agent.base import PAIAgent
 from rdagent.components.agent.context7.conf import SETTINGS
@@ -14,7 +14,7 @@ class Agent(PAIAgent):
     """
 
     def __init__(self):
-        toolsets = [MCPServerStreamableHTTP(SETTINGS.url, timeout=SETTINGS.timeout)]
+        toolsets = [MCPToolset(SETTINGS.url, init_timeout=SETTINGS.timeout)]
 
         super().__init__(
             system_prompt=T(".prompts:system_prompt").r(),

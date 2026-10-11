@@ -1,4 +1,4 @@
-from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.mcp import MCPToolset
 
 from rdagent.components.agent.base import PAIAgent
 from rdagent.components.agent.rag.conf import SETTINGS
@@ -11,7 +11,7 @@ class Agent(PAIAgent):
     """
 
     def __init__(self, system_prompt: str | None = None):
-        toolsets = [MCPServerStreamableHTTP(SETTINGS.url, timeout=SETTINGS.timeout)]
+        toolsets = [MCPToolset(SETTINGS.url, init_timeout=SETTINGS.timeout)]
         if system_prompt is None:
             system_prompt = "You are a Retrieval-Augmented Generation (RAG) agent. Use the retrieved documents to answer the user's queries accurately and concisely."
         super().__init__(system_prompt=system_prompt, toolsets=toolsets)

@@ -10,13 +10,16 @@ class TestAgentInfra(unittest.TestCase):
         # NOTE: It is not serious. It is just for testing
         sys_prompt = T("components.proposal.prompts:hypothesis_gen.system_prompt").r(
             targets="targets",
-            scenario=T("scenarios.qlib.experiment.prompts:qlib_model_background").r(),
+            user_instruction=None,
+            scenario=T("scenarios.qlib.experiment.prompts:qlib_model_background").r(runtime_environment=None),
             hypothesis_output_format=PythonAgentOut.get_spec(),
             hypothesis_specification=PythonAgentOut.get_spec(),
         )
         user_prompt = T("components.proposal.prompts:hypothesis_gen.user_prompt").r(
             hypothesis_and_feedback="No Feedback",
             RAG="No RAG",
+            last_hypothesis_and_feedback=None,
+            sota_hypothesis_and_feedback="",
             targets="targets",
         )
         resp = APIBackend().build_messages_and_create_chat_completion(user_prompt=user_prompt, system_prompt=sys_prompt)

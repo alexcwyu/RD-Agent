@@ -12,6 +12,9 @@ import json
 import os
 import re
 import select
+import shlex
+import signal
+import threading
 import shutil
 import subprocess
 import time
@@ -192,6 +195,7 @@ class EnvConf(ExtendedBaseSettings):
             for path in sorted(
                 list(local_path.rglob("*.py")) + list(local_path.rglob("*.csv")) + list(local_path.rglob("*.yaml"))
             )
+            if not {".venv", "venv", "__pycache__", ".git"}.intersection(path.relative_to(local_path).parts)
         ]
 
     redirect_stdout_to_file: bool = False
@@ -266,13 +270,20 @@ class Env(Generic[ASpecificEnvConf]):
         """
         Zip a folder into a file, use zipfile instead of subprocess
         """
+        destination = Path(zip_file_path).resolve()
+        cache_root = Path(RD_AGENT_SETTINGS.pickle_cache_folder_path_str).resolve()
         with zipfile.ZipFile(zip_file_path, "w") as z:
-            for root, _, files in os.walk(folder_path):
+            for root, directories, files in os.walk(folder_path):
+                directories[:] = [
+                    directory
+                    for directory in directories
+                    if not (Path(root) / directory).resolve().is_relative_to(cache_root)
+                    and directory not in {".venv", "venv", ".git", "__pycache__"}
+                ]
                 for file in files:
-                    z.write(
-                        os.path.join(root, file),
-                        os.path.relpath(os.path.join(root, file), folder_path),
-                    )
+                    source = Path(root) / file
+                    if source.resolve() != destination:
+                        z.write(source, os.path.relpath(source, folder_path))
 
     def unzip_a_file_into_a_folder(
         self, zip_file_path: str, folder_path: str, files_to_extract: list[str] | None = None
@@ -423,24 +434,21 @@ class Env(Generic[ASpecificEnvConf]):
             log_file_relative_path = log_file.relative_to(Path(local_path))
             entry = f"{entry} > {log_file_relative_path} 2>&1"
 
-        if self.conf.running_timeout_period is None:
+        if self.conf.running_timeout_period is None or (
+            isinstance(self, LocalEnv)
+        ):
             timeout_cmd = entry
         else:
-            timeout_cmd = f"timeout --kill-after=10 {self.conf.running_timeout_period} {entry}"
-        entry_add_timeout = (
-            f"/bin/sh -c '"  # start of the sh command
-            + f"{timeout_cmd}; entry_exit_code=$?; "
-            + (
-                f"{_get_chmod_cmd(self.conf.mount_path)}; "
-                # We don't have to change the permission of the cache and input folder to remove it
-                # + f"if [ -d {self.conf.mount_path}/cache ]; then chmod 777 {self.conf.mount_path}/cache; fi; " +
-                #     f"if [ -d {self.conf.mount_path}/input ]; then chmod 777 {self.conf.mount_path}/input; fi; "
-                if isinstance(self.conf, DockerConf)
-                else ""
+            timeout_cmd = (
+                f"timeout --kill-after=10 {self.conf.running_timeout_period} "
+                f"/bin/sh -c {shlex.quote(entry)}"
             )
-            + "exit $entry_exit_code"
-            + "'"  # end of the sh command
-        )
+        shell_script = f"{timeout_cmd}; entry_exit_code=$?; "
+        if isinstance(self.conf, DockerConf):
+            shell_script += f"{_get_chmod_cmd(self.conf.mount_path)}; "
+        shell_script += "exit $entry_exit_code"
+        entry_add_timeout = f"/bin/sh -c {shlex.quote(shell_script)}"
+
 
         if self.conf.enable_cache:
             result = self.cached_run(
@@ -483,6 +491,12 @@ class Env(Generic[ASpecificEnvConf]):
         """
         target_folder = Path(RD_AGENT_SETTINGS.pickle_cache_folder_path_str) / f"utils.env.run"
         target_folder.mkdir(parents=True, exist_ok=True)
+
+        # A full restore clears the input directory. If the cache lives inside
+        # that input, archiving/clearing it would also consume/delete its own
+        # output (for example a run from the checkout root).
+        if target_folder.resolve().is_relative_to(Path(local_path).resolve()) and cache_files_to_extract is None:
+            return self.__run_with_retry(entry, local_path, env, running_extra_volume)
 
         if cache_key_extra_func is not None:
             cache_key_extra = cache_key_extra_func(local_path)
@@ -632,6 +646,7 @@ class LocalEnv(Env[ASpecificLocalConf]):
         @contextlib.contextmanager
         def _symlink_ctx(vol_map: Mapping[str, str]) -> Generator[None, None, None]:
             created_links: list[Path] = []
+            backups: list[tuple[Path, Path]] = []
             try:
                 for real, link in vol_map.items():
                     link_path = Path(link)
@@ -639,17 +654,23 @@ class LocalEnv(Env[ASpecificLocalConf]):
                     if not link_path.parent.exists():
                         link_path.parent.mkdir(parents=True, exist_ok=True)
                     if link_path.exists() or link_path.is_symlink():
-                        link_path.unlink()
+                        backup = link_path.with_name(f".{link_path.name}.{uuid.uuid4().hex}.backup")
+                        link_path.rename(backup)
+                        backups.append((link_path, backup))
                     link_path.symlink_to(real_path)
                     created_links.append(link_path)
                 yield
             finally:
                 for p in created_links:
                     try:
-                        if p.is_symlink() or p.exists():
+                        if p.is_symlink():
                             p.unlink()
                     except FileNotFoundError:
                         pass
+                for original, backup in reversed(backups):
+                    if original.exists() or original.is_symlink():
+                        raise FileExistsError(f"Cannot restore preserved volume path: {original}")
+                    backup.rename(original)
 
         with _symlink_ctx(volumes):
             # Setup environment
@@ -664,7 +685,7 @@ class LocalEnv(Env[ASpecificLocalConf]):
                 *self.conf.bin_path.split(":"),
                 "/bin/",
                 "/usr/bin/",
-                *env.get("PATH", "").split(":"),
+                *env.get("PATH", os.environ.get("PATH", "")).split(":"),
             ]
             env["PATH"] = ":".join(path)
 
@@ -694,7 +715,25 @@ class LocalEnv(Env[ASpecificLocalConf]):
                 shell=True,
                 bufsize=1,
                 universal_newlines=True,
+                start_new_session=True,
             )
+
+            # macOS does not ship GNU timeout. Enforce the same deadline on this
+            # run's private process group, including any children of the shell.
+            timed_out = threading.Event()
+            timeout_timer = None
+            if self.conf.running_timeout_period is not None:
+                def terminate_run() -> None:
+                    if process.poll() is None:
+                        timed_out.set()
+                        try:
+                            os.killpg(process.pid, signal.SIGKILL)
+                        except ProcessLookupError:
+                            pass
+
+                timeout_timer = threading.Timer(self.conf.running_timeout_period, terminate_run)
+                timeout_timer.daemon = True
+                timeout_timer.start()
 
             # Setup polling
             if process.stdout is None or process.stderr is None:
@@ -745,7 +784,9 @@ class LocalEnv(Env[ASpecificLocalConf]):
                 Console().print(err, end="", markup=False)
                 combined_output = out + err
 
-            return_code = process.returncode
+            if timeout_timer is not None:
+                timeout_timer.cancel()
+            return_code = 124 if timed_out.is_set() else process.returncode
             print(Rule("[bold green]LocalEnv Logs End[/bold green]", style="dark_orange"))
 
             return combined_output, return_code
@@ -1050,6 +1091,7 @@ class QlibDockerConf(DockerConf):
     image: str = "local_qlib:latest"
     mount_path: str = "/workspace/qlib_workspace/"
     default_entry: str = "qrun conf.yaml"
+    env_dict: dict = {"MLFLOW_ALLOW_FILE_STORE": "true"}
     extra_volumes: dict = {
         str(Path("~/.qlib/").expanduser().resolve().absolute()): {
             "bind": "/root/.qlib/",

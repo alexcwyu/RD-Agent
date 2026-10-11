@@ -4,9 +4,6 @@
 import concurrent.futures
 import os
 
-os.environ["OPENAI_API_KEY"] = "sk-1234"
-os.environ["OPENAI_API_BASE"] = "http://localhost:4000"
-
 import litellm
 
 litellm.suppress_debug_info = True
@@ -44,6 +41,8 @@ def test_model(model: str) -> tuple:
 
 
 if __name__ == "__main__":
+    os.environ.setdefault("OPENAI_API_KEY", "sk-1234")
+    os.environ.setdefault("OPENAI_API_BASE", "http://localhost:4000")
     print(f"Testing {len(MODELS)} model(s)...\n")
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(MODELS)) as ex:
         for model, ok, msg in ex.map(test_model, MODELS):

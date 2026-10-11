@@ -44,11 +44,12 @@ class EnvUtils(unittest.TestCase):
         local_conf = LocalConf(
             bin_path="/home/v-linlanglv/miniconda3/envs/RD-Agent-310/bin",
             default_entry="qrun conf.yaml",
+            env_dict={"MLFLOW_ALLOW_FILE_STORE": "true"},
         )
         qle = QlibLocalEnv(conf=local_conf)
         qle.prepare()
         conf_path = str(DIRNAME / "env_tpl" / "conf.yaml")
-        qle.check_output(entry="qrun " + conf_path)
+        qle.check_output(entry="qrun " + conf_path, local_path=str(DIRNAME / "env_tpl"))
         mlrun_p = DIRNAME / "env_tpl" / "mlruns"
         self.assertTrue(mlrun_p.exists(), f"Expected output file {mlrun_p} not found")
 
@@ -100,7 +101,7 @@ class EnvUtils(unittest.TestCase):
         self.assertTrue(mlrun_p.exists(), f"Expected output file {mlrun_p} not found")
 
         # read experiment
-        result = qtde.check_output(local_path=str(DIRNAME / "env_tpl"), entry="python read_exp_res.py")
+        result = qtde.check_output(local_path=str(DIRNAME / "env_tpl"), entry="python read_exp.py")
         print(result)
 
     def test_run(self):

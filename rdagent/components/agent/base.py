@@ -1,10 +1,11 @@
 from abc import abstractmethod
 
-import nest_asyncio
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from prefect import task
 from prefect.cache_policies import INPUTS
 from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.mcp import MCPToolset
 
 from rdagent.oai.backend.pydantic_ai import get_agent_model
 
@@ -29,7 +30,7 @@ class PAIAgent(BaseAgent):
     def __init__(
         self,
         system_prompt: str,
-        toolsets: list[str | MCPServerStreamableHTTP],
+        toolsets: list[str | MCPToolset],
         enable_cache: bool = False,
     ):
         """
@@ -39,13 +40,13 @@ class PAIAgent(BaseAgent):
         ----------
         system_prompt : str
             System prompt for the agent
-        toolsets : list[str | MCPServerStreamableHTTP]
+        toolsets : list[str | MCPToolset]
             List of MCP server URLs or instances
         enable_cache : bool
             Enable persistent caching via Prefect. Requires Prefect server:
             `prefect server start` then set PREFECT_API_URL in environment
         """
-        toolsets = [(ts if isinstance(ts, MCPServerStreamableHTTP) else MCPServerStreamableHTTP(ts)) for ts in toolsets]
+        toolsets = [(ts if isinstance(ts, MCPToolset) else MCPToolset(ts)) for ts in toolsets]
         self.agent = Agent(get_agent_model(), system_prompt=system_prompt, toolsets=toolsets)
         self.enable_cache = enable_cache
 
@@ -57,8 +58,16 @@ class PAIAgent(BaseAgent):
         """
         Internal query execution (no caching)
         """
-        nest_asyncio.apply()  # NOTE: very important. Because pydantic-ai uses asyncio!
-        result = self.agent.run_sync(query)
+        try:
+            asyncio.get_running_loop()
+        except RuntimeError:
+            result = self.agent.run_sync(query)
+        else:
+            # Notebook callers already own an event loop. Run this synchronous
+            # query in a private thread instead of globally patching asyncio;
+            # nest_asyncio breaks current AnyIO task detection on Python 3.14.
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                result = executor.submit(lambda: asyncio.run(self.agent.run(query))).result()
         return result.output
 
     def query(self, query: str) -> str:

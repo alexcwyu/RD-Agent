@@ -29,7 +29,7 @@ keywords = [
 ]
 name = "rdagent"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13,<3.15"
 
 [project.scripts]
 rdagent = "rdagent.app.cli:app"
@@ -109,8 +109,8 @@ select = ["ALL"]
 "docs/conf.py" = ["INP001"]
 "test/*" = ["S101"]
 
-[tool.setuptools]
-packages = ["rdagent"]
+[tool.setuptools.packages.find]
+include = ["rdagent*"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = ["requirements.txt"] }
@@ -130,3 +130,6 @@ version_scheme = "guess-next-dev"
 all = true
 in_place = true
 trailing_comma_inline_array = true
+
+[dependency-groups]
+dev = ["pytest", "coverage", "build", "ruff", "mypy"]
