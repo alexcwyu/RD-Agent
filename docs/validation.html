@@ -1,25 +1,11 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Validation evidence</title><style>
-:root{color-scheme:light dark;--bg:#f6f8fa;--paper:#fff;--fg:#182332;--muted:#526274;--line:#d9e0e7;--accent:#1769aa}
-@media(prefers-color-scheme:dark){:root{--bg:#111820;--paper:#192330;--fg:#e6edf3;--muted:#a0b3c5;--line:#344354;--accent:#71b7ee}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 system-ui,-apple-system,sans-serif}
-header{border-bottom:1px solid var(--line);padding:16px max(24px,calc((100vw - 1120px)/2));background:var(--paper);font-size:14px}
-main{max-width:1120px;margin:32px auto;padding:40px 48px;background:var(--paper);border:1px solid var(--line);border-radius:12px}
-h1,h2,h3,h4{line-height:1.3;scroll-margin-top:24px}h1{font-size:2.1rem}h2{margin-top:2.5em;border-bottom:1px solid var(--line);padding-bottom:.35em}h3{margin-top:1.8em}
-a{color:var(--accent);text-underline-offset:3px}code{font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--bg);border-radius:4px;padding:2px 5px}pre{overflow:auto;border:1px solid var(--line);background:var(--bg);padding:16px;border-radius:7px}pre code{padding:0;background:none}
-table{border-collapse:collapse;width:100%;display:block;overflow-x:auto;font-size:14px}th,td{border:1px solid var(--line);padding:9px 12px;text-align:left}th{background:var(--bg)}blockquote{border-left:4px solid var(--accent);margin:16px 0;padding:4px 20px;color:var(--muted)}
-.diagram{overflow-x:auto;margin:24px 0;padding:20px;border:1px solid var(--line);border-radius:8px;background:#fff;color:#182332}.mermaid{border:0;background:none;text-align:center}.mermaid svg{height:auto;max-width:100%}details{font-size:13px;color:#526274}.headerlink{margin-left:.4em;font-size:.7em;text-decoration:none;color:var(--muted)}
-main{min-width:0;overflow-wrap:anywhere}table,pre{max-width:100%}.diagram svg{display:block}
-th,td{min-width:120px;overflow-wrap:normal}
-@media(max-width:740px){main{margin:0;padding:24px 18px;border:0;border-radius:0}h1{font-size:1.7rem}.diagram{padding:8px}}
-@media print{header,details,.headerlink{display:none}body,main{background:#fff;color:#000;border:0;margin:0;padding:0}a{color:#000}.diagram,pre{break-inside:avoid}}
-</style></head><body><header>Engineering documentation · <a href="validation.md">Markdown source</a></header><main><h1 id="validation-evidence">Validation evidence<a class="headerlink" href="#validation-evidence" title="Permanent link">&para;</a></h1>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Validation evidence</title><style>html{color-scheme:light dark}body{margin:0;background:#f5f7fa;color:#172333;font:16px/1.7 system-ui,sans-serif}main{max-width:1120px;margin:28px auto;background:white;padding:40px;border:1px solid #dbe2ea;border-radius:10px}h1,h2,h3{line-height:1.25}h2{margin-top:2em;border-bottom:1px solid #dbe2ea;padding-bottom:.4em}a{color:#1769aa}pre{overflow:auto;padding:16px;background:#f5f7fa;border:1px solid #dbe2ea;border-radius:6px}code{font:14px/1.6 ui-monospace,monospace}table{border-collapse:collapse;display:block;overflow:auto}th,td{border:1px solid #dbe2ea;padding:8px 12px;text-align:left;vertical-align:top}blockquote{margin-left:0;border-left:4px solid #1769aa;padding-left:18px}@media(max-width:700px){main{margin:8px;padding:18px}body{font-size:15px}}@media(prefers-color-scheme:dark){body{background:#111820;color:#e7edf5}main{background:#192330;border-color:#344354}pre{background:#111820}a{color:#78b9ef}th,td,h2,pre{border-color:#344354}}@media print{main{margin:0;border:0;padding:0}a{color:inherit}pre,table{overflow:visible}}</style></head><body><main><h1 id="validation-evidence">Validation evidence</h1>
+<p>Current campaign decision: the user explicitly excludes the remaining failing tests from completion requirements. Historical failures below remain failures; they are not relabeled as passes. Source/build/tooling/documentation requirements remain in scope.</p>
 <p>Recorded 2026-10-12 on macOS arm64. Selected Python: <strong>3.14.8</strong>; uv0.13.0; native Cargo/Rust1.99.0. Commands below ran from the repository root. Exit124 means the documented time bound expired; exit139 means a native segmentation fault. An earlier failed attempt is retained even if a later rerun succeeds.</p>
-<h2 id="current-scope-and-result">Current scope and result<a class="headerlink" href="#current-scope-and-result" title="Permanent link">&para;</a></h2>
+<h2 id="current-scope-and-result">Current scope and result</h2>
 <p>The complete canonical suite finished:222passed,20failed,1error,316subtests passed; no cases were deselected. Twelve failures require real chat/embedding credentials, two require the configured Context7 MCP endpoint, five require Kaggle authentication, and one requires a valid KG_COMPETITION setting. The existing standalone connectivity test_model(model) has no model fixture and remains an error. All8existing environment cases pass, including real Docker Qlib training, local timeout and mounts. Current MCPToolset and standard asyncio replace removed APIs and an incompatible global nest_asyncio patch. Full suite success is blocked by those explicit prerequisites; package wheel/source builds and runtime controls pass.</p>
 <p>Current recorded status: <strong>blocked</strong>. Interpreter fallback evidence and native prerequisites are described in <a href="development.md">development</a>. See <a href="ayu-develop.md">architecture</a> for workflows, components, and existing source links.</p>
-<h2 id="executed-commands">Executed commands<a class="headerlink" href="#executed-commands" title="Permanent link">&para;</a></h2>
+<h2 id="executed-commands">Executed commands</h2>
 <table>
 <thead>
 <tr>
@@ -222,8 +208,8 @@ th,td{min-width:120px;overflow-wrap:normal}
 </tr>
 </tbody>
 </table>
-<h2 id="test-summaries-and-failures">Test summaries and failures<a class="headerlink" href="#test-summaries-and-failures" title="Permanent link">&para;</a></h2>
-<h3 id="tests">tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<h2 id="test-summaries-and-failures">Test summaries and failures</h2>
+<h3 id="tests">tests</h3>
 <p>Exit 2; elapsed 26.68seconds.</p>
 <pre><code class="language-text">    class TestPersonModel(BaseModel):
 
@@ -238,7 +224,7 @@ ERROR test/oai/test_pydantic.py
 !!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
 ======================== 7 warnings, 2 errors in 21.27s ========================
 </code></pre>
-<h3 id="tests-upgraded-mcp">tests-upgraded-mcp<a class="headerlink" href="#tests-upgraded-mcp" title="Permanent link">&para;</a></h3>
+<h3 id="tests-upgraded-mcp">tests-upgraded-mcp</h3>
 <p>Exit 124; elapsed 900.04seconds.</p>
 <pre><code class="language-text">│            │ $entry_exit_code'                                               │
 │ Local Path │ /Users/alex/workspaces/trading/RD-Agent/test/utils/tmp_code     │
@@ -253,11 +239,11 @@ ERROR test/oai/test_pydantic.py
 PASSED
 test/utils/test_env.py::EnvUtils::test_docker 2026-10-12 00:19:50.717 | INFO     | rdagent.utils.env:prepare:1205 - Building the image from dockerfile: /Users/alex/workspaces/trading/RD-Agent/rdagent/scenarios/qlib/docker
 </code></pre>
-<h3 id="tests-offline">tests-offline<a class="headerlink" href="#tests-offline" title="Permanent link">&para;</a></h3>
+<h3 id="tests-offline">tests-offline</h3>
 <p>Exit 0; elapsed 67.52seconds.</p>
 <pre><code class="language-text">==== 131 passed, 112 deselected, 17 warnings, 304 subtests passed in 56.12s ====
 </code></pre>
-<h3 id="tests-final3148">tests-final3148<a class="headerlink" href="#tests-final3148" title="Permanent link">&para;</a></h3>
+<h3 id="tests-final3148">tests-final3148</h3>
 <p>Exit 1; elapsed 509.81seconds.</p>
 <pre><code class="language-text">FAILED test/notebook/test_notebook_converter.py::TestNotebookConverter::test_convert
 FAILED test/notebook/test_notebook_converter.py::TestNotebookConverter::test_convert_2
@@ -290,15 +276,15 @@ FAILED test/utils/test_kaggle.py::TestTpl::test_competition_template - ValueE...
 ERROR test/oai/test_llm_connectivity.py::test_model
 = 28 failed, 214 passed, 25 warnings, 1 error, 316 subtests passed in 505.51s (0:08:25) =
 </code></pre>
-<h3 id="tests-offline-final3148">tests-offline-final3148<a class="headerlink" href="#tests-offline-final3148" title="Permanent link">&para;</a></h3>
+<h3 id="tests-offline-final3148">tests-offline-final3148</h3>
 <p>Exit 0; elapsed 17.19seconds.</p>
 <pre><code class="language-text">==== 131 passed, 112 deselected, 16 warnings, 304 subtests passed in 13.05s ====
 </code></pre>
-<h3 id="tests-notebook-conf-current">tests-notebook-conf-current<a class="headerlink" href="#tests-notebook-conf-current" title="Permanent link">&para;</a></h3>
+<h3 id="tests-notebook-conf-current">tests-notebook-conf-current</h3>
 <p>Exit 0; elapsed 5.53seconds.</p>
 <pre><code class="language-text">======================== 65 passed, 4 warnings in 3.71s ========================
 </code></pre>
-<h3 id="tests-final-current-layout">tests-final-current-layout<a class="headerlink" href="#tests-final-current-layout" title="Permanent link">&para;</a></h3>
+<h3 id="tests-final-current-layout">tests-final-current-layout</h3>
 <p>Exit 124; elapsed 600.07seconds.</p>
 <pre><code class="language-text">┌────────────┬─────────────────────────────────────────────────────────────────┐
 │ Entry      │ /bin/sh -c 'timeout --kill-after=10 3600 qrun                   │
@@ -313,7 +299,7 @@ ERROR test/oai/test_llm_connectivity.py::test_model
 ────────────────────────────── LocalEnv Logs End ───────────────────────────────
 2026-10-12 01:30:34.524 | INFO     | rdagent.utils.env:__run_with_retry:342 - Running time: 0.08170509338378906 seconds
 </code></pre>
-<h3 id="tests-nested-cache-fixed">tests-nested-cache-fixed<a class="headerlink" href="#tests-nested-cache-fixed" title="Permanent link">&para;</a></h3>
+<h3 id="tests-nested-cache-fixed">tests-nested-cache-fixed</h3>
 <p>Exit 1; elapsed 232.55seconds.</p>
 <pre><code class="language-text">FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache - RuntimeErro...
 FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache_multiprocess
@@ -342,24 +328,24 @@ FAILED test/utils/test_kaggle.py::TestTpl::test_competition_template - ValueE...
 ERROR test/oai/test_llm_connectivity.py::test_model
 = 24 failed, 218 passed, 24 warnings, 1 error, 316 subtests passed in 228.11s (0:03:48) =
 </code></pre>
-<h3 id="tests-quoted-portable-env">tests-quoted-portable-env<a class="headerlink" href="#tests-quoted-portable-env" title="Permanent link">&para;</a></h3>
+<h3 id="tests-quoted-portable-env">tests-quoted-portable-env</h3>
 <p>Exit 1; elapsed 23.15seconds.</p>
 <pre><code class="language-text">FAILED test/utils/test_env.py::EnvUtils::test_conda_error - AssertionError: a...
 FAILED test/utils/test_env.py::EnvUtils::test_docker - AssertionError: False ...
 FAILED test/utils/test_env.py::EnvUtils::test_local - AssertionError: False i...
 =================== 3 failed, 5 passed, 1 warning in 20.28s ====================
 </code></pre>
-<h3 id="tests-env-current-runtime">tests-env-current-runtime<a class="headerlink" href="#tests-env-current-runtime" title="Permanent link">&para;</a></h3>
+<h3 id="tests-env-current-runtime">tests-env-current-runtime</h3>
 <p>Exit 1; elapsed 22.71seconds.</p>
 <pre><code class="language-text">FAILED test/utils/test_env.py::EnvUtils::test_docker - AssertionError: False ...
 FAILED test/utils/test_env.py::EnvUtils::test_local - PermissionError: [Errno...
 =================== 2 failed, 6 passed, 1 warning in 19.73s ====================
 </code></pre>
-<h3 id="tests-env-file-store">tests-env-file-store<a class="headerlink" href="#tests-env-file-store" title="Permanent link">&para;</a></h3>
+<h3 id="tests-env-file-store">tests-env-file-store</h3>
 <p>Exit 0; elapsed 396.09seconds.</p>
 <pre><code class="language-text">=================== 8 passed, 1 warning in 391.32s (0:06:31) ===================
 </code></pre>
-<h3 id="tests-full-portable-final">tests-full-portable-final<a class="headerlink" href="#tests-full-portable-final" title="Permanent link">&para;</a></h3>
+<h3 id="tests-full-portable-final">tests-full-portable-final</h3>
 <p>Exit 1; elapsed 570.3seconds.</p>
 <pre><code class="language-text">FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache - RuntimeErro...
 FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache_multiprocess
@@ -384,12 +370,12 @@ FAILED test/utils/test_kaggle.py::TestTpl::test_competition_template - ValueE...
 ERROR test/oai/test_llm_connectivity.py::test_model
 = 20 failed, 222 passed, 24 warnings, 1 error, 316 subtests passed in 564.93s (0:09:24) =
 </code></pre>
-<h3 id="tests-context7-standard-asyncio">tests-context7-standard-asyncio<a class="headerlink" href="#tests-context7-standard-asyncio" title="Permanent link">&para;</a></h3>
+<h3 id="tests-context7-standard-asyncio">tests-context7-standard-asyncio</h3>
 <p>Exit 1; elapsed 8.61seconds.</p>
 <pre><code class="language-text">FAILED test/oai/test_pydantic.py::PydanticTest::test_context7 - RuntimeError:...
 FAILED test/oai/test_prefect_cache.py::PydanticTest::test_context7_cache - Ru...
 </code></pre>
-<h3 id="tests-full-standard-asyncio-final">tests-full-standard-asyncio-final<a class="headerlink" href="#tests-full-standard-asyncio-final" title="Permanent link">&para;</a></h3>
+<h3 id="tests-full-standard-asyncio-final">tests-full-standard-asyncio-final</h3>
 <p>Exit 1; elapsed 440.69seconds.</p>
 <pre><code class="language-text">FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache - RuntimeErro...
 FAILED test/oai/test_advanced.py::TestAdvanced::test_chat_cache_multiprocess
@@ -414,6 +400,5 @@ FAILED test/utils/test_kaggle.py::TestTpl::test_competition_template - ValueE...
 ERROR test/oai/test_llm_connectivity.py::test_model
 = 20 failed, 222 passed, 17 warnings, 1 error, 316 subtests passed in 436.99s (0:07:16) =
 </code></pre>
-<h2 id="synchronization">Synchronization<a class="headerlink" href="#synchronization" title="Permanent link">&para;</a></h2>
-<p>All upstream branch and tag refs were fetched by the workspace synchronization procedure. Fork updates use non-forcing pushes; upstream tags also have a private local namespace to preserve divergent tags. The default branch was merged into feature/ayu_develop, preserving the modern package layout and upstream source changes. The workspace synchronization JSON and log retain per-ref outcomes and merge history. This document does not claim that any feature branch was pushed.</p></main>
-</body></html>
+<h2 id="synchronization">Synchronization</h2>
+<p>All upstream branch and tag refs were fetched by the workspace synchronization procedure. Fork updates use non-forcing pushes; upstream tags also have a private local namespace to preserve divergent tags. The default branch was merged into feature/ayu_develop, preserving the modern package layout and upstream source changes. The workspace synchronization JSON and log retain per-ref outcomes and merge history. This document does not claim that any feature branch was pushed.</p></main></body></html>
